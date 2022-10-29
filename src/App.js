@@ -1,24 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/home/Home';
-import Login from './components/login/Login';
-import Navbar from './components/Navbar/Navbar';
-import Register from './components/register/Register';
+import { Header } from './components/common/header/Header';
+import "./App.css"
+// import Login from './components/login/Login';
+// import Register from './components/register/Register';
+import { Pages } from './pages/Pages';
 
 function App() {
   return (
     <div className='App'>
       <Router>
-        <Navbar/>
+        <Header/>
         <Switch>
-          <Route path='/login'>
+          {/* <Route path='/login'>
             <Login />
           </Route>
           <Route path='/register'>
             <Register />
-          </Route>
+          </Route> */}
           <Route path='/'>
-            <Home />
+            <Pages />
           </Route>
         </Switch>
       </Router>
