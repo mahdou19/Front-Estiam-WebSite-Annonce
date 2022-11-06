@@ -1,28 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/home/Home';
-import Login from './components/login/Login';
-import Navbar from './components/Navbar/Navbar';
-import Register from './components/register/Register';
+import { BrowserRouter as Router} from 'react-router-dom';
+import { Header } from './components/common/header/Header';
+import "./App.css"
+import { DataProvider } from './Context/Context'; 
+import { Pages } from './components/pages/Pages';
+// import Login from './components/login/Login';
+// import Register from './components/register/Register';
+
 
 function App() {
   return (
-    <div className='App'>
+    <DataProvider>
       <Router>
-        <Navbar/>
-        <Switch>
-          <Route path='/login'>
-            <Login />
-          </Route>
-          <Route path='/register'>
-            <Register />
-          </Route>
-          <Route path='/'>
-            <Home />
-          </Route>
-        </Switch>
+         <div className='App'>
+            <Header/>
+            <Pages />
+        </div>
       </Router>
-    </div>
+    </DataProvider>
+    
   );
 }
 
