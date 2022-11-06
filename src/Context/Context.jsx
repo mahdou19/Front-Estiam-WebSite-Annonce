@@ -1,13 +1,24 @@
-import React, {createContext} from 'react'
+import React, {createContext, useState} from 'react'
 
-export const useContext = createContext()
+import ProductHooks from "../hooks/Products/useProducts"
+
+export const useElementContext = createContext()
 
 
 export const DataProvider = ({children}) =>{
 
+    const [token, setToken] = useState(false)
+
+const elementContext = {
+
+    token : [token, setToken],
+    ProductHooks : ProductHooks()
+
+}
+   
     return (
-        <useContext.Provider value={"Value Global"}>
+        <useElementContext.Provider value={elementContext}>
             {children}
-        </useContext.Provider>
+        </useElementContext.Provider>
     )
 }

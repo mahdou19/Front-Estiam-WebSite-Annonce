@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import "./Header.css"
 import Navbar from './Navbar';
 import { Search } from './Search';
-import { GlobalState } from '../../../Context/Context';
+import { useElementContext } from '../../../Context/Context';
 import menu from '../../assets/images/menu.svg';
 import close from '../../assets/images/close.svg';
 import { Link } from 'react-router-dom';
 
 export const Header = () => {
-  const value = useContext(useContext);
+  const value = useContext(useElementContext);
 
   return (
     <header>
