@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import { Search } from './Search';
 import { useElementContext } from '../../../Context/Context';
 import menu from '../../assets/images/menu.svg';
+import logo from '../../assets/images/logo.png';
 import close from '../../assets/images/close.svg';
 import { Link } from 'react-router-dom';
 
@@ -17,9 +18,7 @@ export const Header = () => {
       </div>
 
       <div className='logo'>
-        <h1>
-          <Link to='/'> MonAnnonce</Link>
-        </h1>
+        <img src={logo} alt='Logo'/>
       </div>
 
         <ul>

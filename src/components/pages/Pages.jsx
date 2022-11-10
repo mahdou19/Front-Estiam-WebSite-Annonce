@@ -12,7 +12,7 @@ export const Pages = () => {
        <Switch>
           <Route path='/' exact component={Products}/>
           <Route path='/login' exact component={Login}/>
-          <Route path='/register' exact component={Register}/>
+          <Route path='/registration' exact component={Register}/>
             
         </Switch>
   );
