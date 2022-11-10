@@ -4,16 +4,41 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
-  const onChangeInput = (e) => {};
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [zip_code, setZip_code] = useState('');
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [identifical_file, setIdentifical_file] = useState('');
+
+  const onChangeInput = (e) => {
+    setIdentifical_file(e.target.files[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post('/registration');
+    var formData = new FormData();
+    formData.append('firstname', firstName);
+    formData.append('lastname', lastName);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('phone', phone);
+    formData.append('address', address);
+    formData.append('zip_code', zip_code);
+    formData.append('city', city);
+    formData.append('country', country);
+    formData.append('identifical_file', identifical_file);
 
-      window.location.href = '/';
+    try {
+      await axios.post('/registration', formData);
+
+      window.location.href = '/login';
     } catch (err) {
-      alert(err.response.data.msg);
+      console.log(err);
     }
   };
   return (
@@ -24,14 +49,14 @@ const Register = () => {
           name='firstname'
           required
           placeholder='Prénom'
-          onChange={onChangeInput}
+          onChange={(e) => setFirstName(e.target.value)}
         />
         <input
           type='text'
           name='lastname'
           required
           placeholder='Nom'
-          onChange={onChangeInput}
+          onChange={(e) => setLastName(e.target.value)}
         />
 
         <input
@@ -39,51 +64,59 @@ const Register = () => {
           name='email'
           required
           placeholder='Email'
-          onChange={onChangeInput}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type='password'
           name='password'
           required
           placeholder='Mot de passe'
-          onChange={onChangeInput}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type='number'
           name='phone'
           required
           placeholder='phone(Ex:0700000000'
-          onChange={onChangeInput}
+          onChange={(e) => setPhone(e.target.value)}
         />
         <input
           type='text'
           name='address'
           required
           placeholder='Adresse'
-          onChange={onChangeInput}
+          onChange={(e) => setAddress(e.target.value)}
         />
         <input
           type='text'
           name='zip_code'
           required
           placeholder='Code Postal'
-          onChange={onChangeInput}
+          onChange={(e) => setZip_code(e.target.value)}
         />
         <input
           type='text'
           name='city'
           required
           placeholder='Ville'
-          onChange={onChangeInput}
+          onChange={(e) => setCity(e.target.value)}
         />
         <input
           type='text'
           name='country'
           required
           placeholder='Pays'
-          onChange={onChangeInput}
+          onChange={(e) => setCountry(e.target.value)}
         />
-        <input type='file' name='identifical_file' onChange={onChangeInput} />
+        <div id='profile'>
+          <label>Selectionner votre photo de profile</label>
+          <input
+            type='file'
+            id='input-file'
+            name='identifical_file'
+            onChange={onChangeInput}
+          />
+        </div>
 
         <div>
           <button type='submit'>S'inscrire</button>
