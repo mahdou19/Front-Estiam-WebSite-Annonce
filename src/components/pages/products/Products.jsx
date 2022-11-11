@@ -8,8 +8,6 @@ export const Products = () => {
     const state = useContext(useElementContext)
 
     const [products] = state.ProductHooks.products
-
-    console.log(products);
    
    
   return (

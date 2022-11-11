@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 import "./login.css"
 
 const Login = () => {
@@ -19,16 +20,14 @@ const Login = () => {
     e.preventDefault()
     try{
         await axios.post('/login', {...user})
-        .then((res) => console.log(res))
-
-      
-
-        localStorage.setItem('FirstLogin', true)
-
+        .then((res) => {
+        const token = res.data.token.token
+        localStorage.setItem('FirstLogin', token)
         window.location.href = "/"
 
+        })
     }catch(err){
-        alert(err.response.data.msg)
+        console.log(err);
     }
   }
   return (
