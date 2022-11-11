@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
+import { useElementContext } from '../../../Context/Context';
 
-const Register = () => {
+const MyProfile = () => {
+  const firstLogin = localStorage.getItem('FirstLogin')
+    
+  const state = useContext(useElementContext)
+  const user = state.UserApi.isLogged
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,8 +21,18 @@ const Register = () => {
   const [country, setCountry] = useState('');
   const [identifical_file, setIdentifical_file] = useState('');
 
-  const onChangeInput = (e) => {
-    setIdentifical_file(e.target.files[0]);
+
+
+  const handleDelete = async() => {
+    try {
+      await axios.delete(`/user/:2`, {
+        headers: {Authorization: `Bearer ${firstLogin}`}
+      });
+        alert("Profile supprimer")
+      window.location.href = '/registration';
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -25,18 +41,19 @@ const Register = () => {
     formData.append('firstname', firstName);
     formData.append('lastname', lastName);
     formData.append('email', email);
-    formData.append('password', password);
     formData.append('phone', phone);
     formData.append('address', address);
     formData.append('zip_code', zip_code);
     formData.append('city', city);
     formData.append('country', country);
-    formData.append('identifical_file', identifical_file);
+
 
     try {
-      await axios.post('/registration', formData);
-
-      window.location.href = '/login';
+      await axios.put(`/user/:${user[0].id}`, {
+        headers: {Authorization: `Bearer ${firstLogin}`}
+      },formData);
+        alert("Profile Enregistrer")
+      window.location.href = '/MyProfile';
     } catch (err) {
       console.log(err);
     }
@@ -49,6 +66,7 @@ const Register = () => {
           name='firstname'
           required
           placeholder='Prénom'
+          value={user[0].firstname}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <input
@@ -56,6 +74,7 @@ const Register = () => {
           name='lastname'
           required
           placeholder='Nom'
+          value={user[0].lastname}
           onChange={(e) => setLastName(e.target.value)}
         />
 
@@ -64,20 +83,23 @@ const Register = () => {
           name='email'
           required
           placeholder='Email'
+          value={user[0].email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        {/* <input
           type='password'
           name='password'
           required
           placeholder='Mot de passe'
+          value={user[0].password}
           onChange={(e) => setPassword(e.target.value)}
-        />
+        /> */}
         <input
           type='number'
           name='phone'
           required
           placeholder='phone(Ex:0700000000'
+          value={user[0].phone}
           onChange={(e) => setPhone(e.target.value)}
         />
         <input
@@ -85,6 +107,7 @@ const Register = () => {
           name='address'
           required
           placeholder='Adresse'
+          value={user[0].address}
           onChange={(e) => setAddress(e.target.value)}
         />
         <input
@@ -92,6 +115,7 @@ const Register = () => {
           name='zip_code'
           required
           placeholder='Code Postal'
+          value={user[0].zip_code}
           onChange={(e) => setZip_code(e.target.value)}
         />
         <input
@@ -100,31 +124,36 @@ const Register = () => {
           required
           placeholder='Ville'
           onChange={(e) => setCity(e.target.value)}
+          value={user[0].city}
         />
         <input
           type='text'
           name='country'
           required
           placeholder='Pays'
+          value={user[0].country}
           onChange={(e) => setCountry(e.target.value)}
         />
-        <div id='profile'>
+        {/* <div id='profile'>
           <label>Selectionner votre photo de profile</label>
           <input
             type='file'
             id='input-file'
             name='identifical_file'
+        
             onChange={onChangeInput}
           />
-        </div>
+        </div> */}
 
         <div>
-          <button type='submit'>S'inscrire</button>
-          <Link to='login'>Se Connecter</Link>
+          <button type='submit'>Enregistrer</button>
+        </div>
+        <div>
+          <button  onClick={handleDelete}>Supprimer</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default MyProfile;
