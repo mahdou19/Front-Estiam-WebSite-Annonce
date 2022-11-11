@@ -74,13 +74,9 @@ export const Header = () => {
         onClose={handleClose}
         aria-labelledby="basic-demo-button"
       >
-        <MenuItem onClick={handleClose}><button onClick="">Mon Profile</button></MenuItem>
+        <MenuItem onClick={handleClose}><button onClick={() =>(window.location.href = "/MyProfile") }>Mon Profile</button></MenuItem>
         <MenuItem onClick={handleClose}><button onClick={logoutUser}>Deconnecté</button></MenuItem>
       </Menu>
-   
-            {/* <Avatar alt="Remy Sharp" src={user[0].profile_picture} /> */}
-            {/* <Link to='/disconnect'>Deconnecté</Link> */}
-            {/* <button onClick={logoutUser}>Deconnecté</button> */}
           </li>
           </> )
            : (
